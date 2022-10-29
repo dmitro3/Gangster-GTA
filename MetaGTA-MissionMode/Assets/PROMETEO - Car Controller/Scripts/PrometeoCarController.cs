@@ -341,7 +341,7 @@ public class PrometeoCarController : MonoBehaviour,IPunObservable
     private void OnTriggerEnter(Collider other)
     {
         if (!pv.IsMine) return;
-        if (other.CompareTag("checkpoint"))
+        /*if (other.CompareTag("checkpoint"))
         {
             other.gameObject.SetActive(false);
 
@@ -373,7 +373,7 @@ public class PrometeoCarController : MonoBehaviour,IPunObservable
 
             Debug.Log("Race Finished You Are A Winner !");
             AudioManager.Instance.playSound(3);
-        }
+        }*/
 
         if (other.CompareTag("coin"))
         {

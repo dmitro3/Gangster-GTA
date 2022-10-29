@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -77,11 +78,14 @@ public class NPC_AI : MonoBehaviour
         EnableAnimator();
     }
 
-    internal void Die()
+    internal void Die(bool isMine = false)
     {
         if (!died)
         {
-            AudioManager.Instance.playSound(UnityEngine.Random.Range(8, 13));
+            if (isMine)
+            {
+                AudioManager.Instance.playSound(UnityEngine.Random.Range(8, 13));
+            }
 
             died = true;
             EnableRagdoll();
@@ -214,7 +218,9 @@ public class NPC_AI : MonoBehaviour
         {
             if (other.GetComponentInParent<PrometeoCarController>().carSpeed > 5)
             {
-                Die();
+                bool isMine = other.GetComponentInParent<PhotonView>().IsMine;
+
+                Die(isMine);
             }
             else
             {

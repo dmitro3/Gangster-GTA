@@ -127,7 +127,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
 
 
 
-    [SerializeField] GameObject meetUI;
+    
     [SerializeField] TMPro.TMP_Text usernameText;
     [SerializeField] GameObject meetCollider;
 
@@ -516,8 +516,8 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
             usernameText.transform.LookAt(MetaManager.Instance.mainCamera.transform);
             usernameText.transform.rotation = Quaternion.LookRotation(MetaManager.Instance.mainCamera.transform.forward);
 
-            meetUI.transform.LookAt(MetaManager.Instance.mainCamera.transform);
-            meetUI.transform.rotation = Quaternion.LookRotation(MetaManager.Instance.mainCamera.transform.forward);
+            /*meetUI.transform.LookAt(MetaManager.Instance.mainCamera.transform);
+            meetUI.transform.rotation = Quaternion.LookRotation(MetaManager.Instance.mainCamera.transform.forward);*/
 
             return;
         }
@@ -549,7 +549,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
     {
         if (!pv.IsMine) return;
 
-        this.GetComponent<ChallengeRequestManager>().OnPlayerAcceptedChallenge += HandleChallenge;
+        //this.GetComponent<ChallengeRequestManager>().OnPlayerAcceptedChallenge += HandleChallenge;
         MissionSystem.OnMissionStarted += HandleMissionStart;
         MissionSystem.OnMissionOver += HandleMissionOver;
         PhotonNetwork.AddCallbackTarget(this);
@@ -561,7 +561,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
     private void OnDisable()
     {
         if (!pv.IsMine) return;
-        this.GetComponent<ChallengeRequestManager>().OnPlayerAcceptedChallenge -= HandleChallenge;
+        //this.GetComponent<ChallengeRequestManager>().OnPlayerAcceptedChallenge -= HandleChallenge;
         MissionSystem.OnMissionStarted -= HandleMissionStart;
         MissionSystem.OnMissionOver -= HandleMissionOver;
         PhotonNetwork.RemoveCallbackTarget(this);
@@ -572,7 +572,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
 
     Vector3 carLastPoz;
     Quaternion carLastRot;
-    private void HandleChallenge(int racePozIndex,int racePathIndex,int raceEnvPozIndex, int subPoz)
+    /*private void HandleChallenge(int racePozIndex,int racePathIndex,int raceEnvPozIndex, int subPoz)
     {
         playerLastPoz = this.transform.position;
         playerLastRot = this.transform.rotation;
@@ -593,7 +593,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
         MissionSystem.Instance.CloseMissions();
 
         StartCoroutine(RaceCountDown());
-    }
+    }*/
     IEnumerator RaceCountDown()
     {
         float timer = 3;
@@ -608,9 +608,9 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
         AudioManager.Instance.playSound(2);
         UIManager.Instance.ShowInformationMsg("GO!!", 3f);
 
-        Transform firstPoint = RaceManager.Instance.current_race_path_checkpoints[0];
-        Transform secondPoint = RaceManager.Instance.current_race_path_checkpoints[1];
-        CheckPointsManager.Instance.SetCheckPoint(firstPoint,secondPoint);
+        //Transform firstPoint = RaceManager.Instance.current_race_path_checkpoints[0];
+        //Transform secondPoint = RaceManager.Instance.current_race_path_checkpoints[1];
+        //CheckPointsManager.Instance.SetCheckPoint(firstPoint,secondPoint);
 
         playerCar.StartRace();
 
@@ -859,10 +859,10 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
         _controller.enabled = state;
         this.GetComponent<BasicRigidBodyPush>().enabled = state;
 
-        if (meetUI.activeInHierarchy)
+        /*if (meetUI.activeInHierarchy)
         {
             meetUI.SetActive(false);
-        }
+        }*/
         if (!pv.IsMine)
         {
             usernameText.gameObject.SetActive(state);
@@ -904,7 +904,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
         {
             OnPlayerTriggerCar?.Invoke(true,car);
         }
-
+/*
         if (!MetaManager.Instance.inRace)
         {
             if (!pv.IsMine && (bool)pv.Owner.CustomProperties["isRacing"] == false)
@@ -916,7 +916,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
                     //virtualWorldUI.SetActive(true);
                 }
             }
-        }
+        }*/
 
         if (other.CompareTag("coin"))
         {
@@ -945,7 +945,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
             OnPlayerTriggerCar?.Invoke(false, car);
         }
 
-        if (!pv.IsMine)
+       /* if (!pv.IsMine)
         {
             if (other.CompareTag("Meet"))
             {
@@ -953,7 +953,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
                 meetUI.SetActive(false);
                 // virtualWorldUI.SetActive(false);
             }
-        }
+        }*/
     }
 
     #endregion
@@ -971,7 +971,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
         MetaManager.Instance.inChallengePlayer = null;
         Debug.Log(pv.Owner.UserId + " is womn? " + won);
 
-        RaceManager.Instance.ResetRaceSettings();
+        //RaceManager.Instance.ResetRaceSettings();
         UIManager.Instance.ShowInformationMsg(won?"Congrats! You Won":"Hard Luck! You Lost.",3f);
         UIManager.Instance.ShowGameCompleteUI(won);
 
@@ -979,17 +979,17 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
     
     
 
-    [PunRPC]
+    /*[PunRPC]
     public void RPC_RaceOver(bool i_won)
     {
         RaceOver(i_won, false);        
-    }
+    }*/
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //base.OnPlayerLeftRoom(otherPlayer);
 
-        if (pv.IsMine)
+       /* if (pv.IsMine)
         {
             if (MetaManager.Instance.inRace)
             {
@@ -998,7 +998,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
                     RaceOver(true, false);
                 }
             }
-        }
+        }*/
 
     }
     #endregion

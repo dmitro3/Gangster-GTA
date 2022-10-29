@@ -335,13 +335,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject FightRequestUI;
     [SerializeField] TMP_Text fightRequestText;
 
-    public void FightReq(string _userdata)
+    /*public void FightReq(string _userdata)
     {
         FightRequestUI.SetActive(true);
         fightRequestText.text = _userdata + " want to fight with you !";
-    }
+    }*/
 
-    public void FightReqAcion(bool _accept)
+    /*public void FightReqAcion(bool _accept)
     {
      
         MetaManager.Instance.myPlayer.GetComponent<ChallengeRequestManager>().RequestFightAction(_accept);
@@ -349,7 +349,7 @@ public class UIManager : MonoBehaviour
         Debug.Log("Fight Action " + _accept);
         // PhotonView photonView = PhotonView.Get(this);
         // photonView.RPC("UpdateHealthMe", RpcTarget.All, PhotonNetwork.LocalPlayer.UserId);
-    }
+    }*/
     #endregion
 
 
