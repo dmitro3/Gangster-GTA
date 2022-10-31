@@ -307,13 +307,18 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
             {                
                 UIManager.Instance.ToggleEmoteUI(false);
                 //isEmoteUIOpened = false;
+                
                 if (selected_emote != -1 && Grounded)
                 {
                     isDoingEmote = true;
                     _animator.SetFloat("EmoteID", selected_emote);
                     _animator.SetBool("Emote", true);
                     StartCoroutine(changeEmoteBool());
-                }               
+                }
+                else
+                {
+                    TogglePlayerMovement(true);
+                }
                 
             }
             #endregion
