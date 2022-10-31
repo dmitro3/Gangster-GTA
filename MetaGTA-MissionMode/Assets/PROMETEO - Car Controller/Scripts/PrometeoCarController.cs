@@ -300,8 +300,15 @@ public class PrometeoCarController : MonoBehaviour,IPunObservable
     {
         throttleAxis = 0;
         steeringAxis = 0;
+
+        rearLeftCollider.motorTorque = 0;
+        rearRightCollider.motorTorque = 0;
+        frontLeftCollider.motorTorque = 0;
+        frontRightCollider.motorTorque = 0;
+
         this.carRigidbody.velocity = Vector3.zero;
         this.carRigidbody.angularVelocity = Vector3.zero;
+        canDrive = false;
     }
 
     #region Event Management
