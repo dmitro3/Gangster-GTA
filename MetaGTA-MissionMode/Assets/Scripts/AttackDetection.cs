@@ -40,7 +40,7 @@ public class AttackDetection : MonoBehaviour
 
                     
                     this.gameObject.SetActive(false);
-                    npc.Die();
+                    npc.Die(true);
 
                 }
             }
