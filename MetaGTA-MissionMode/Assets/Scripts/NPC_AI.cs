@@ -285,12 +285,14 @@ public class NPC_AI : MonoBehaviour
 
         Instantiate(coin,this.transform.position+Vector3.up*1f,Quaternion.identity);
 
-        EnableAnimator();
         int groupId = UnityEngine.Random.Range(0, MetaManager.Instance.footpath_poz.Length);
         SetGroupIndex(groupId);
         this.transform.position = MetaManager.Instance.footpath_poz[groupId].pozs[UnityEngine.Random.Range(0, MetaManager.Instance.footpath_poz[groupId].pozs.Length)].position;        
         
         died = false;
+
+        EnableAnimator();
+
         if (type == NPC_TYPE.WALK || type == NPC_TYPE.RUN)
         {
 
