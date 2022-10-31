@@ -203,7 +203,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
     public void AttackComplete()
     {
         TogglePlayerMovement(true);
-        isAttacking = true;
+        isAttacking = false;
     }
 
     public void EmoteComplete()
