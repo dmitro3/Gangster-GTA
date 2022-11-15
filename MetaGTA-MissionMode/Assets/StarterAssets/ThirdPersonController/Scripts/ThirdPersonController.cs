@@ -183,10 +183,12 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
         }
     }
 
-    private void Start()
+    async void Start()
     {
         if (pv.IsMine)
         {
+            UIManager.Instance.ToggleLoadingPanel(true);
+
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;           
             
 
@@ -195,7 +197,29 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            long lastTimeSpin = long.Parse(DatabaseManager.Instance.GetLocalData().last_spin_time);
+            long currentTime = await DatabaseManager.Instance.GetCurrentTime();
+
+
+            Debug.Log("lastTimeSpin : " + lastTimeSpin);
+            Debug.Log("currentTime : " + currentTime);
+
+            long diff = currentTime - lastTimeSpin;
+
+            Debug.Log("difference : " + diff);
+#if UNITY_EDITOR
+            diff = 99999;
+#endif
+            if (diff > 86400)
+            {
+                //StopMovement();
+                UIManager.Instance.ToggleDailyRewardUI(true);
+            }
         }
+
+        UIManager.Instance.ToggleLoadingPanel(false);
+    
     }
 
 

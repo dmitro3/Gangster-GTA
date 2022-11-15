@@ -21,6 +21,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject PressF_UI;
     [SerializeField] GameObject OpenCars_BTN;
 
+    [SerializeField] GameObject LoadingPanel;
+    public void ToggleLoadingPanel(bool enabled)
+    {
+        LoadingPanel.SetActive(enabled);
+    }
+
     #region Event Callbacks Management
     private void OnEnable()
     {
@@ -267,6 +273,8 @@ public class UIManager : MonoBehaviour
         }
         tutorialObjects[currentTutorial].SetActive(true);
     }
+
+   
     public void SkipTutorial()
     {
         PlayerPrefs.SetInt("tutorial", 1);
@@ -438,6 +446,54 @@ public class UIManager : MonoBehaviour
         {
            // token_texts[i].text = SingletonDataManager.userTokenBalance;
         }
+    }
+    #endregion
+
+
+    #region Daily Reward UI
+    [SerializeField] GameObject DailyRewardUI;
+    
+    public void ToggleDailyRewardUI(bool enabled)
+    {
+        DailyRewardUI.SetActive(enabled);
+        if (enabled)
+        {
+            canClaimReward = true;
+        }
+    }
+    public void PlayParicle(ParticleSystem particle)
+    {
+        particle.Play();
+    }
+    bool canClaimReward = false;
+    public void ClaimReward(int index)
+    {
+        //REWAWRD IMPLEMENTION
+
+
+        if (canClaimReward)
+        {
+            AudioManager.Instance.playSound(13);
+            canClaimReward = false;
+
+            Debug.LogWarning("IMPLEMENT NEW CODE HERE");
+            int coins = UnityEngine.Random.Range(10,300);
+
+            LocalData data = DatabaseManager.Instance.GetLocalData();
+            data.coins += coins;
+            DatabaseManager.Instance.UpdateData(data);
+           
+
+            DatabaseManager.Instance.UpdateSpinData();
+            StartCoroutine(disableRewardUI(coins));
+
+        }
+    }
+    IEnumerator disableRewardUI(int coins)
+    {
+        yield return new WaitForSeconds(1f);
+        ToggleDailyRewardUI(false);
+        ShowInformationMsg(coins.ToString() + " Coins Reward Added!",3f);
     }
     #endregion
 

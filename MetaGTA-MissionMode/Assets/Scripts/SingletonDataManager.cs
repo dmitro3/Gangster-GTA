@@ -16,6 +16,7 @@ public class SingletonDataManager : MonoBehaviour
     public static string username;
     public static string userethAdd;
     public static string useruniqid;
+    public static string userTokenBalance;
     [SerializeField]
     public static List<MetaJungleNFTLocal> metanftlocalData = new List<MetaJungleNFTLocal>();
     //public List<MetaJungleNFTLocal> metanftlocalData2 = new List<MetaJungleNFTLocal>();

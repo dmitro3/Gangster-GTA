@@ -32,7 +32,7 @@ public class EvmosManager : MonoBehaviour
     
 
     // address of contract
-    public const string contract = "0xB2625ce9Fd3259aa2D698061eA2023c535522Aad";
+    public const string contract = "0x2d75f9320628820DCB25ACb0Feb62ee2CFE2F066";
 
     const string chain = "polygon";
     // set network mainnet, testnet
@@ -120,10 +120,12 @@ public class EvmosManager : MonoBehaviour
         loadingPanel.SetActive(true);
         SingletonDataManager.userethAdd = account;
         CovalentManager.insta.GetNFTUserBalance();
-        
-       
 
-       // Debug.Log("LIST OF PUZZLE: " + await CheckPuzzleList());
+
+        GetTokenBalance();
+
+
+        // Debug.Log("LIST OF PUZZLE: " + await CheckPuzzleList());
 
 #endif
 
@@ -167,6 +169,8 @@ public class EvmosManager : MonoBehaviour
         {
             toDisableObjectsAfterLogin[i].SetActive(false);
         }
+
+       
 
         //CoinBuyOnSendContract(0);
     }
@@ -663,5 +667,98 @@ public class EvmosManager : MonoBehaviour
 
 
 
-    
+    #region Token
+    public async UniTaskVoid ExchangeTokenUI(int index)
+    {
+        if (MessaeBox.insta) MessaeBox.insta.showMsg("Coin exchange process started", false);
+        string response = await ExchangeToken(index);
+
+        if (!string.IsNullOrEmpty(response))
+        {
+            if (DatabaseManager.Instance)
+            {
+                DatabaseManager.Instance.AddTransaction(response, "pending", index - 1);
+            }
+            if (DatabaseManager.Instance)
+            {
+                DatabaseManager.Instance.ChangeTransactionStatus(response, "success");
+            }
+
+
+
+            if (MessaeBox.insta) MessaeBox.insta.showMsg("Coin exchanged successfully", true);
+
+        }
+        else
+        {
+            if (MessaeBox.insta) MessaeBox.insta.showMsg("Transaction Has Been Failed", true);
+        }
+
+
+    }
+    async Task<string> ExchangeToken(int packID)
+    {
+        /*string _amount = UnitConversion.Convert.ToWei(packID, 18).ToString();
+        object[] parameters = {
+            contractToken,
+            _amount
+        };
+
+        // Set gas estimate
+        HexBigInteger value = new HexBigInteger(0);
+        HexBigInteger gas = new HexBigInteger(0);
+        HexBigInteger gasPrice = new HexBigInteger(0);
+
+        Debug.Log("DataTRansfer buyCoins " + JsonConvert.SerializeObject(parameters));
+
+
+        string resp = await Moralis.ExecuteContractFunction(contractToken, abiToken, "transfer", parameters, value, gas, gasPrice);*/
+
+
+
+        /*if (resp != null && resp != "")
+        {
+            return resp;
+        }*/
+
+        return null;
+    }
+
+    public async UniTaskVoid GetTokenBalance()
+    {
+        COMEHERE:
+        // Function ABI input parameters
+        object[] inputParams = new object[1];
+        inputParams[0] = new { internalType = "address", name = "account", type = "address" };
+        // Function ABI Output parameters
+        object[] outputParams = new object[1];
+        outputParams[0] = new { internalType = "uint256", name = "", type = "uint256" };
+        // Function ABI
+        object[] abiThis = new object[1];
+        abiThis[0] = new { inputs = inputParams, name = "balanceOf", outputs = outputParams, stateMutability = "view", type = "function" };
+
+
+        // Define request object
+        /*RunContractDto rcd = new RunContractDto()
+        {
+            Abi = abiThis,
+            Params = new { account = SingletonDataManager.userethAdd }
+        };
+        string resp = await Moralis.Web3Api.Native.RunContractFunction<string>(contractToken, "balanceOf", rcd, ContractChain);
+        //Debug.Log("GetTokenBalance " + resp);
+
+        if (!string.IsNullOrEmpty(resp))
+            SingletonDataManager.userTokenBalance = Math.Round((double)UnitConversion.Convert.FromWei(BigInteger.Parse(resp)), 4).ToString();
+
+
+        if (UIManager.Instance) UIManager.Instance.SetTokenBalanceText();
+        Debug.Log("GetTokenBalance " + SingletonDataManager.userTokenBalance);*/
+
+        await UniTask.Delay(UnityEngine.Random.Range(5000, 10000));
+        goto COMEHERE;
+
+    }
+
+    #endregion
+
 }
