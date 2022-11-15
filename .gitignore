@@ -2,11 +2,11 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-[Ll]ibrary/
+MetaGTA-MissionMode/[Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
-[Bb]uild/
-[Bb]uilds/
+MetaGTA-MissionMode/[Bb]uild/
+MetaGTA-MissionMode/[Bb]uilds/
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
 MetaGTA-MissionMode_*/

@@ -37,7 +37,7 @@ public class InAppManager : MonoBehaviour
         int tokenBalance = System.Int32.Parse(SingletonDataManager.userTokenBalance);
         if (tokenBalance >= index)
         {
-            EvmosManager.Instance.ExchangeTokenUI(index);
+            EvmosManager.Instance.ExchangeToken(index);
         }
         else
         {
