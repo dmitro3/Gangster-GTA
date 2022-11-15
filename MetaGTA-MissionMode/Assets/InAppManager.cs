@@ -34,7 +34,7 @@ public class InAppManager : MonoBehaviour
 
     public void ExchangeCoins(int index)
     {
-        int tokenBalance = System.Int32.Parse(SingletonDataManager.userTokenBalance);
+        int tokenBalance = System.Int32.Parse(EvmosManager.userTokenBalance);
         if (tokenBalance >= index)
         {
             EvmosManager.Instance.ExchangeToken(index);

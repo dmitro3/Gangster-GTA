@@ -44,9 +44,9 @@ public class MyNFTCollection : MonoBehaviour
         selectedCarinUI = 0;
         // ClosePurchasePanel();
         all_cars.Clear();
-        for (int i = 0; i < PlayerCarsInfo.Instance.all_car_details.Count; i++)
+        for (int i = 0; i < PlayerCarsInfo.Instance.carDefaultData.Count; i++)
         {
-            all_cars.Add(PlayerCarsInfo.Instance.all_car_details[i].car_index);
+            all_cars.Add(PlayerCarsInfo.Instance.carDefaultData[i].car_index);
         }
 
         await EvmosManager.Instance.CheckPuzzleList();

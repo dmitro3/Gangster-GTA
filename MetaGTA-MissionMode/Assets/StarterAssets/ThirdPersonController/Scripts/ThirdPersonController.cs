@@ -226,7 +226,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
     #region Animation Callbacks
     public void AttackComplete()
     {
-        TogglePlayerMovement(true);
+        TogglePlayerMovement(true);        
         isAttacking = false;
     }
 
@@ -338,7 +338,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
                 UIManager.Instance.ToggleEmoteUI(true);
                 //isEmoteUIOpened = true;
 
-                can_move = false;
+                TogglePlayerMovement(false);
                 
                 _animator.SetFloat(_animIDSpeed, 0);
             }
@@ -356,7 +356,10 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
                 }
                 else
                 {
-                    TogglePlayerMovement(true);
+                    if (!isAttacking)
+                    {
+                        TogglePlayerMovement(true);
+                    }
                 }
                 
             }
@@ -366,8 +369,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
             if (_input.GetMouseLeftButton() && can_move && !isDoingEmote && !isAttacking && !ifUIItemIsHit())
             {
 
-                TogglePlayerMovement(false);
-
+                TogglePlayerMovement(false);                
                 isAttacking = true;
                 _animator.SetFloat(_animIDAttack, (int)UnityEngine.Random.Range(0, 3));
                 _animator.SetBool(_animboolAttack, true);
@@ -461,7 +463,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
     }
     public void GotAttack(Vector3 position, Vector3 triggerPoint)
     {
-        can_move = false;
+        TogglePlayerMovement(false);
         //play Hurt Sound
         AudioManager.Instance.playSound(Random.Range(8,13));
 
@@ -502,6 +504,11 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
     public void TogglePlayerMovement(bool enable)
     {
         can_move = enable;
+
+        if (enable)
+        {
+            Debug.Log("FROM WHICH METHOD ENABLE");
+        }
         
     }
     IEnumerator ResetAttack()
@@ -514,7 +521,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
         WeaponCollider.SetActive(false);
         yield return new WaitForSeconds(0.4f);
         isAttacking = false;
-        TogglePlayerMovement(true);
+        
 
     }
 
@@ -712,7 +719,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
         {
             isDoingEmote = false;
             selected_emote = -1;
-            can_move = true;
+            TogglePlayerMovement(true);
             _animator.Play("Base Layer.Movement", 0, 0);
         }
 

@@ -132,7 +132,7 @@ public class EvmosManager : MonoBehaviour
 
         // Debug.Log("LIST OF PUZZLE: " + await CheckPuzzleList());
 
-       await GetRandomNumber();
+      // await GetRandomNumber();
        
 
 #endif
@@ -179,7 +179,7 @@ public class EvmosManager : MonoBehaviour
             toDisableObjectsAfterLogin[i].SetActive(false);
         }
        
-        await GetRandomNumber();
+        //await GetRandomNumber();
    
 
 
@@ -724,10 +724,10 @@ public class EvmosManager : MonoBehaviour
             {
                 // InvokeRepeating("CheckTransactionStatus", 1*Time.timeScale, 5*Time.timeScale);
 
-
                 if (MessaeBox.insta) MessaeBox.insta.showMsg("Coin exchanged successfully", true);
 
-             
+                DatabaseManager.Instance.AddCoins(_pack);
+                
 
             }
 
@@ -760,6 +760,7 @@ public class EvmosManager : MonoBehaviour
                 userTokenBalance = tokenBalance;
                 Debug.Log("Token Bal : " + Convert.ToDecimal(eth).ToString() + " | " + response);
 
+                if (UIManager.Instance) { UIManager.Instance.SetTokenBalanceText(); }
                 //if (StoreManager.insta) StoreManager.insta.UpdateBalance();
             }
             catch (Exception)

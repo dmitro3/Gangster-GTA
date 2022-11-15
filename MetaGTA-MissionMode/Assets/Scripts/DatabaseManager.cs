@@ -384,6 +384,36 @@ public class DatabaseManager : MonoBehaviour
             return "";
         }
     }
+
+    public void AddCoins(int pack)
+    {
+        
+        switch (pack)
+        {
+            case 1:
+                {
+                    data.coins += 500;
+                    break;
+                }
+            case 2:
+                {
+                    data.coins += 1000;
+                    break;
+                }
+            case 3:
+                {
+                    data.coins += 2000;
+                    break;
+                }
+            case 4:
+                {
+                    data.coins += 4000;
+                    break;
+                }
+        }
+        UpdateData(data);
+        UIManager.Instance.SetCoinText();
+    }
 }
 [System.Serializable]
 public class LocalData

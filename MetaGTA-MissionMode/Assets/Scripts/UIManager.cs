@@ -409,7 +409,7 @@ public class UIManager : MonoBehaviour
     }
     public void ClaimToken()
     {
-       // EvmosManager.Instance.GetTokenReward();
+        EvmosManager.Instance.getDailyToken();
         TokenUI.SetActive(false);
     }
 
@@ -444,7 +444,7 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < token_texts.Length; i++)
         {
-           // token_texts[i].text = SingletonDataManager.userTokenBalance;
+            token_texts[i].text = EvmosManager.userTokenBalance;
         }
     }
     #endregion
@@ -452,29 +452,47 @@ public class UIManager : MonoBehaviour
 
     #region Daily Reward UI
     [SerializeField] GameObject DailyRewardUI;
-    
+    [SerializeField] GameObject generateNumber_BTN;
+    [SerializeField] TMP_Text random_number_text;
+    [SerializeField] ParticleSystem[] all_box_particles;
+
     public void ToggleDailyRewardUI(bool enabled)
     {
-        DailyRewardUI.SetActive(enabled);
-        if (enabled)
+        DailyRewardUI.SetActive(enabled);        
+    }
+    public async void GetRandomNumber()
+    {
+        MessaeBox.insta.showMsg("Getting Random Number! \n Please wait and confirm transaction.", false);
+        int randomNumber = await EvmosManager.Instance.GetRandomNumber();
+        Debug.Log("Random Number Is " + randomNumber);
+        if (randomNumber == -1)
         {
-            canClaimReward = true;
+            MessaeBox.insta.showMsg("Unable to get random number at this moment! Please try again later.", true);
+
+            Debug.Log("Return unable to generate random no");
+            ToggleDailyRewardUI(false);
+            return;
+        }
+        else
+        {
+            MessaeBox.insta.hideMsg();
+            random_number_text.text = "Random Number is: " + randomNumber.ToString();
+            random_number_text.gameObject.SetActive(true);
+            await Cysharp.Threading.Tasks.UniTask.Delay(2000, true);
+            ClaimReward(randomNumber - 1);
         }
     }
+
+
     public void PlayParicle(ParticleSystem particle)
     {
         particle.Play();
     }
-    bool canClaimReward = false;
+   
     public void ClaimReward(int index)
     {
-        //REWAWRD IMPLEMENTION
-
-
-        if (canClaimReward)
-        {
-            AudioManager.Instance.playSound(13);
-            canClaimReward = false;
+            PlayParicle(all_box_particles[index]);
+            AudioManager.Instance.playSound(13);            
 
             Debug.LogWarning("IMPLEMENT NEW CODE HERE");
             int coins = UnityEngine.Random.Range(10,300);
@@ -487,7 +505,7 @@ public class UIManager : MonoBehaviour
             DatabaseManager.Instance.UpdateSpinData();
             StartCoroutine(disableRewardUI(coins));
 
-        }
+        
     }
     IEnumerator disableRewardUI(int coins)
     {
