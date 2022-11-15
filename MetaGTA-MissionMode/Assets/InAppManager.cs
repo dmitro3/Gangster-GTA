@@ -31,4 +31,18 @@ public class InAppManager : MonoBehaviour
     {
         EvmosManager.Instance.CoinBuyOnSendContract(index);
     }
+
+    public void ExchangeCoins(int index)
+    {
+        /*int tokenBalance = System.Int32.Parse(SingletonDataManager.userTokenBalance);
+        if (tokenBalance >= index)
+        {
+            EvmosManager.Instance.ExchangeTokenUI(index);
+        }
+        else
+        {
+            MessaeBox.insta.showMsg("Not Enough Tokens to exchange", true);
+        }*/
+    }
+
 }

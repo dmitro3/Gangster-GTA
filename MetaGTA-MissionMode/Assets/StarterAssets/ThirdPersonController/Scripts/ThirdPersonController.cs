@@ -221,7 +221,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
         if (!pv.IsMine) return;
         if (!_input) return;
 
-
+/*
 #if UNITY_EDITOR
         if (playerState == PlayerState.WORLD)
         {
@@ -236,8 +236,23 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
             }
         }
 #endif
+*/
 
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (Cursor.lockState == CursorLockMode.None)
+            {
+                if (!EventSystem.current.IsPointerOverGameObject())
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
 
 
         //MOUSE ENABLE DISABLE

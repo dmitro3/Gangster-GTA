@@ -393,6 +393,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject gamecomplete_ui;
     [SerializeField] TMP_Text game_status_text;
     [SerializeField] TMP_Text reward_got_text;
+    [SerializeField] GameObject TokenUI;
+
+    public void ShowTokenUI()
+    {
+        TokenUI.SetActive(true);
+    }
+    public void ClaimToken()
+    {
+       // EvmosManager.Instance.GetTokenReward();
+        TokenUI.SetActive(false);
+    }
+
     public void ShowGameCompleteUI(bool won)
     {
         gamecomplete_ui.SetActive(true);
@@ -410,12 +422,21 @@ public class UIManager : MonoBehaviour
 
     #region Coin Texts
     [SerializeField] TMP_Text[] coin_texts;
+    [SerializeField] TMP_Text[] token_texts;
     public void SetCoinText()
     {
         int coins = DatabaseManager.Instance.GetLocalData().coins;
         for (int i = 0; i < coin_texts.Length; i++)
         {
             coin_texts[i].text = coins.ToString();
+        }
+    }
+
+    public void SetTokenBalanceText()
+    {
+        for (int i = 0; i < token_texts.Length; i++)
+        {
+           // token_texts[i].text = SingletonDataManager.userTokenBalance;
         }
     }
     #endregion

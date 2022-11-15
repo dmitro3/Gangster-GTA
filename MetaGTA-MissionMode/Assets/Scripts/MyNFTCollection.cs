@@ -66,8 +66,9 @@ public class MyNFTCollection : MonoBehaviour
 
         /*if (available_cars.Count > 1)
         {
-            next_BTN.SetActive(true);
+            
         }*/
+        next_BTN.SetActive(true);
 
         Canvas3DObject.SetActive(true);
         UIManager.Instance.SetCoinText();
@@ -171,7 +172,7 @@ public class MyNFTCollection : MonoBehaviour
         Enable3DCar(all_cars[selectedCarinUI]);
         prev_BTN.SetActive(true);
 
-        Debug.LogWarning("Change Car Stats UI HERE");
+        //Debug.LogWarning("Change Car Stats UI HERE");
 
     }
     public void PreviousCar()
@@ -184,7 +185,7 @@ public class MyNFTCollection : MonoBehaviour
 
         next_BTN.SetActive(true);
         Enable3DCar(all_cars[selectedCarinUI]);
-        Debug.LogWarning("Change Car Stats UI HERE");
+        //Debug.LogWarning("Change Car Stats UI HERE");
     }
 
 
@@ -361,7 +362,7 @@ public class MyNFTCollection : MonoBehaviour
        
         CarUpgradeInfo car_details = PlayerCarsInfo.Instance.all_car_details.Find(x => x.car_index == carIndex);
         CarUpgradePrice car_upgrade_details = PlayerCarsInfo.Instance.car_upgrades.Find(x => x.car_index == carIndex);
-
+        CarUpgradeInfo car_defaultDetails = PlayerCarsInfo.Instance.carDefaultData.Find(x => x.car_index == carIndex);
 
 
         bool isBought = available_cars.Contains(carIndex);
@@ -386,7 +387,7 @@ public class MyNFTCollection : MonoBehaviour
             });
 
             car_cost_text.gameObject.SetActive(true);
-            car_cost_text.text = car_details.carCost.ToString();
+            car_cost_text.text = car_defaultDetails.carCost.ToString();
         }
 
         // Debug.Log(car_details.car_index);
@@ -399,17 +400,16 @@ public class MyNFTCollection : MonoBehaviour
             }
             return;
         }
-        if (carIndex == 0)
+
+        if (DatabaseManager.Instance.allMetaDataServer.Count > carIndex)
         {
-            carInfo_txt.text = "Default Car";
+            carInfo_txt.text = DatabaseManager.Instance.allMetaDataServer[carIndex].description;
         }
         else
         {
-            //carInfo_txt.text = DatabaseManager.Instance.allMetaDataServer[car_details.car_index - 1].description;
-            carInfo_txt.text = carIndex.ToString(); ;
+            carInfo_txt.text = "";
         }
-        
-        
+
         for (int i = 0; i < all_slider.Length; i++)
         {
             all_slider[i].slider.gameObject.SetActive(true);
@@ -571,7 +571,7 @@ public class MyNFTCollection : MonoBehaviour
     private void PurchaseCar(int carIndex)
     {
         LocalData data = DatabaseManager.Instance.GetLocalData();
-        if(data.coins< PlayerCarsInfo.Instance.all_car_details[carIndex].carCost)
+        if (data.coins < PlayerCarsInfo.Instance.carDefaultData[carIndex].carCost)
         {
             MessaeBox.insta.showMsg("Not Enough Coins!", true);
             return;

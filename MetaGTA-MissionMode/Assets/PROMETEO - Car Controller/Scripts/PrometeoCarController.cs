@@ -137,8 +137,7 @@ public class PrometeoCarController : MonoBehaviour,IPunObservable
     //CAR DATA
 
     
-    public float carSpeed; // Used to store the speed of the car.
-    [HideInInspector]
+    public float carSpeed; // Used to store the speed of the car.   
     public bool isDrifting; // Used to know whether the car is drifting or not.
     [HideInInspector]
     public bool isTractionLocked; // Used to know whether the traction of the car is locked or not.
@@ -457,7 +456,7 @@ public class PrometeoCarController : MonoBehaviour,IPunObservable
             float speed2 = (2 * Mathf.PI * frontRightCollider.radius * frontRightCollider.rpm * 60) / 1000;
             float avg_speed = (speed1 + speed2) / 2;
             //carSpeed = Mathf.Abs(carRigidbody.velocity.magnitude);
-            carSpeed =Mathf.Lerp(carSpeed, avg_speed, Time.deltaTime);
+            carSpeed =Mathf.Lerp(carSpeed, avg_speed, Time.deltaTime *5);
             carSpeed = Mathf.Abs(carSpeed);
             carSpeed = Mathf.Clamp(carSpeed, 0, maxSpeed);
             if (UIManager.Instance) UIManager.Instance.SetSpeedometer(carSpeed);
@@ -513,6 +512,12 @@ public class PrometeoCarController : MonoBehaviour,IPunObservable
                 ResetSteeringAngle();
             }
 
+            if (!_input.CheckNitroInput())
+            {
+                current_nitroTimer = Mathf.Clamp(current_nitroTimer + Time.deltaTime / 20, 0, nitroTimer);
+                OnBoosterValueChange?.Invoke(this);
+            }           
+
 
             if (_input.CheckNitroInput())
             {
@@ -564,7 +569,7 @@ public class PrometeoCarController : MonoBehaviour,IPunObservable
                 Nitro2.Play();
             }
 
-            AudioManager.Instance.playSound(5);
+            AudioManager.Instance.playSound(5,0.3f);
             nitroSpeed = 100000;
             nitroAccel = 30;
             additionalThrottle = 1;
@@ -1022,8 +1027,18 @@ public class PrometeoCarController : MonoBehaviour,IPunObservable
             {
                 if ((isTractionLocked || Mathf.Abs(localVelocityX) > 5f) && Mathf.Abs(carSpeed) > 12f)
                 {
-                    RLWTireSkid.emitting = true;
-                    RRWTireSkid.emitting = true;
+
+
+                    if (carSpeed > 3)
+                    {
+                        current_nitroTimer = Mathf.Clamp(current_nitroTimer + Time.deltaTime / 10, 0, nitroTimer);
+                        OnBoosterValueChange?.Invoke(this);
+                    }
+
+
+
+                    if(rearLeftCollider.isGrounded) RLWTireSkid.emitting = true;
+                    if(rearRightCollider.isGrounded) RRWTireSkid.emitting = true;
                 }
                 else
                 {

@@ -447,7 +447,14 @@ public class MissionSystem : MonoBehaviour
 
         LocalData data=DatabaseManager.Instance.GetLocalData();
         data.coins += _runningMission.reward_amount;
+
+        data.missionCompleted++;
         DatabaseManager.Instance.UpdateData(data);
+
+        if (data.missionCompleted % 1 == 0)
+        {
+            UIManager.Instance.ShowTokenUI();
+        }
 
         UIManager.Instance.SetCoinText();
 

@@ -396,6 +396,7 @@ public class LocalData
     public string last_spin_time= "0";    
     public List<TranscationInfo> transactionsInformation = new List<TranscationInfo>();
     public List<CarUpgradeInfo> carDetails = new List<CarUpgradeInfo>();
+    public int missionCompleted=0;
 
     public LocalData()
     {
@@ -407,6 +408,7 @@ public class LocalData
         last_spin_time = "0";
         transactionsInformation = new List<TranscationInfo>();
         carDetails = new List<CarUpgradeInfo>();
+        missionCompleted = 0;
 
     }
 
