@@ -92,7 +92,7 @@ public class MPNetworkManager : MonoBehaviourPunCallbacks
     #region RandomRoom
     private void JoinRandomRoom()
     {
-        UIManager.Instance.UpdateUserName("Entering to Meta Race");
+        UIManager.Instance.UpdateUserName("Entering to Gangster GTA");
         //int temoNo = Random.Range(0, 2);
         //Debug.Log("PlayerNo " + temoNo);
         PhotonNetwork.NickName = DatabaseManager.Instance.GetLocalData().name;
