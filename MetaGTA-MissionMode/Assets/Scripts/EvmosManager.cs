@@ -571,24 +571,10 @@ public class EvmosManager : MonoBehaviour
         meta.description = DatabaseManager.Instance.allMetaDataServer[_id].description;
         meta.image = DatabaseManager.Instance.allMetaDataServer[_id].imageurl;
 
-        StartCoroutine(UploadNFTMetadata(Newtonsoft.Json.JsonConvert.SerializeObject(meta), _id, _skin));
+        StartCoroutine(Upload(Newtonsoft.Json.JsonConvert.SerializeObject(meta), _id, _skin));
 
     }
-    public void uploadPuzzleNFT(string jsonData, string url)
-    {
-        Debug.Log("purchaseItem");
-
-        MetadataNFT meta = new MetadataNFT();
-
-
-        meta.jsonData = jsonData;
-        meta.name = "Puzzle";
-        meta.description = "Puzzle Desc.";
-        meta.image = url;
-
-        StartCoroutine(UploadNFTPuzzleMetadata(Newtonsoft.Json.JsonConvert.SerializeObject(meta)));
-        //NonBurnNFTPuzzleBuyContract(url);
-    }
+  
     IEnumerator UploadNFTMetadata(string _metadata, int _id, bool _skin)
     {
         if (MessaeBox.insta) MessaeBox.insta.showMsg("NFT purchase process started\nThis can up to minute", false);
@@ -631,49 +617,57 @@ public class EvmosManager : MonoBehaviour
             }
         }
     }
-    IEnumerator UploadNFTPuzzleMetadata(string _metadata)
-    {
-        if (MessaeBox.insta) MessaeBox.insta.showMsg("NFT purchase process started\nThis can up to minute", false);
-        Debug.Log("Creating and saving metadata to IPFS..." + _metadata);
-        WWWForm form = new WWWForm();
-        form.AddField("meta", _metadata);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("https://api.nft.storage/store", form))
+    IEnumerator Upload(string _metadata, int _id, bool _skin)
+    {
+
+        if (MessaeBox.insta) MessaeBox.insta.showMsg("NFT purchase process started\nThis can up to minute", false);
+        Debug.Log("UploadNFTMetadata uploading " + _metadata);
+        var form = new WWWForm();
+        form.AddBinaryData("file", System.Text.Encoding.UTF8.GetBytes(_metadata), "metadata.json", "application/json");
+        using (UnityWebRequest www = UnityWebRequest.Post("https://api.nft.storage/upload", form))
         {
             www.SetRequestHeader("Authorization", "Bearer " + ConstantManager.nftStorage_key);
-            www.timeout = 40;
+            www.timeout = 60;
             yield return www.SendWebRequest();
-
-
-
-            if (www.result != UnityWebRequest.Result.Success)
+            if (www.isNetworkError || www.isHttpError || www.isNetworkError)
             {
                 Debug.Log(www.error);
                 Debug.Log("UploadNFTMetadata upload error " + www.downloadHandler.text);
+                if (MessaeBox.insta) MessaeBox.insta.showMsg("Server error\nPlease try again", true);
+
+
+            }
+            else
+            {
+                Debug.Log("Form upload complete!");
+                Debug.Log("UploadNFTMetadata upload complete! " + www.downloadHandler.text);
+
+                JSONObject j = new JSONObject(www.downloadHandler.text);
+                if (j.HasField("ok"))
+                {
+                    if (j.GetField("ok").boolValue)
+                    {
+                        if (!string.IsNullOrEmpty(j.GetField("value").GetField("cid").stringValue))
+                        {
+                            SingletonDataManager.nftmetaCDI = @"ipfs://" + j.GetField("value").GetField("cid").stringValue + "/metadata.json";
+
+                            Debug.Log("Metadata saved successfully " + _id + " | " + SingletonDataManager.nftmetaCDI);
+                            if (!_skin) NonBurnNFTBuyContract(_id, SingletonDataManager.nftmetaCDI);
+                            //if (!_skin) NonBurnNFTBuyContract(_id, j.GetField("value").GetField("url").stringValue);
+                            yield break;
+                        }
+                    }
+                }
 
 
                 if (MessaeBox.insta) MessaeBox.insta.showMsg("Server error\nPlease try again", true);
 
-                www.Abort();
-                www.Dispose();
-            }
-            else
-            {
-                Debug.Log("UploadNFTMetadata upload complete! " + www.downloadHandler.text);
 
-                JSONObject j = new JSONObject(www.downloadHandler.text);
-                if (j.HasField("value"))
-                {
-                    //Debug.Log("Predata " + j.GetField("value").GetField("ipnft").stringValue);
-                    SingletonDataManager.nftmetaCDI = j.GetField("value").GetField("url").stringValue; //ipnft
-                    //SingletonDataManager.tokenID = j.GetField("value").GetField("ipnft").stringValue; //ipnft
-                    Debug.Log("Metadata saved successfully");
-                    //PurchaseItem(cost, _id);
-                    NonBurnNFTPuzzleBuyContract(j.GetField("value").GetField("url").stringValue);
-                }
             }
         }
     }
+
     #endregion
 
 
