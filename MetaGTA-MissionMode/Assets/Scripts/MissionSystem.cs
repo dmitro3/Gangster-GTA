@@ -339,6 +339,7 @@ public class MissionSystem : MonoBehaviour
 
             OnMissionStarted?.Invoke(_m);
 
+            CloseMissions();
         }
         else
         {

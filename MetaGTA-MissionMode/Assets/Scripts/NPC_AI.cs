@@ -246,7 +246,8 @@ public class NPC_AI : MonoBehaviour
     }
     IEnumerator ResetPrevState()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
+
         type = prev_type;
 
         switch (type)
