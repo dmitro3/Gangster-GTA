@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3569742592005753454}
   - component: {fileID: 7113097589668329111}
   - component: {fileID: 696922734233023606}
-  - component: {fileID: 3770209482366304273}
+  - component: {fileID: 2545579693975964238}
   m_Layer: 0
   m_Name: Tree2_a_Spherical_LP_0
   m_TagString: Untagged
@@ -99,8 +99,8 @@ MonoBehaviour:
     schemeGrid: 64
     currentScheme: 0
   mesh: {fileID: 4300000, guid: 3ca6e983415658b4d82c0c33f3c693ff, type: 3}
---- !u!64 &3770209482366304273
-MeshCollider:
+--- !u!136 &2545579693975964238
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -109,7 +109,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: a8fc5f09182351548af8d1f645729131, type: 3}
+  m_Radius: 0.05
+  m_Height: 2.03
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.7839639, z: 0}

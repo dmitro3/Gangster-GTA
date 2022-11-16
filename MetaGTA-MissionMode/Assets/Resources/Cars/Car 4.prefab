@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pv: {fileID: 3082394864184679325}
   canDrive: 0
-  index: 7
+  index: 3
   _input: {fileID: 0}
   maxSpeed: 190
   maxReverseSpeed: 45

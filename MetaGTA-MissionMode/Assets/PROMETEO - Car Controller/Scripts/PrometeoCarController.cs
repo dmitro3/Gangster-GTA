@@ -439,15 +439,21 @@ public class PrometeoCarController : MonoBehaviour,IPunObservable
         //CAR DATA
 
         // We determine the speed of the car.
-        
+
         /*Debug.Log(carRigidbody.velocity.magnitude);
         if (carRigidbody.velocity.magnitude - carSpeed >= 50f)
         {
             carSpeed = carRigidbody.velocity.magnitude;
         }*/
 
+        if (!_input.CheckNitroInput())
+        {
+            current_nitroTimer = Mathf.Clamp(current_nitroTimer + Time.deltaTime / 20, 0, nitroTimer);
+            OnBoosterValueChange?.Invoke(this);
+        }
 
-         carEngineSound.gameObject.SetActive(canDrive); // This variable stores the sound of the car engine.
+
+        carEngineSound.gameObject.SetActive(canDrive); // This variable stores the sound of the car engine.
         tireScreechSound.gameObject.SetActive(canDrive); // This variable stores the sound of the tire screech (when the car is drifting).
 
         if(canDrive){
@@ -569,7 +575,7 @@ public class PrometeoCarController : MonoBehaviour,IPunObservable
                 Nitro2.Play();
             }
 
-            AudioManager.Instance.playSound(5,0.3f);
+            AudioManager.Instance.playSound(5,0.1f);
             nitroSpeed = 100000;
             nitroAccel = 30;
             additionalThrottle = 1;

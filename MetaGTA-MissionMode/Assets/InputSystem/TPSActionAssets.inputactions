@@ -510,6 +510,17 @@
                 },
                 {
                     "name": "",
+                    "id": "1148b872-095e-4fc8-afb6-a53d51dd7391",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Nitro",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "fdbd87b9-1387-4ac4-b299-2be83e2ef917",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
