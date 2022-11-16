@@ -864,7 +864,16 @@ public class BCCoreManager : MonoBehaviour
             if (!string.IsNullOrEmpty(response))
             {
                 var result = await GetRandomNoFromContract();
-                if (!string.IsNullOrEmpty(result)) return int.Parse(result);
+                if (!string.IsNullOrEmpty(result))
+                {
+                    int number = int.Parse(result);
+
+                    if (number == 0)
+                    {
+                        number = 1;
+                    }
+                    return number;
+                }
             }
 
             return -1;
@@ -887,6 +896,7 @@ public class BCCoreManager : MonoBehaviour
         {
             string response = await EVM.Call(chain, network, contractRandom, abiRandom, method, args);
             Debug.Log(response);
+           
             return response;
 
         }
