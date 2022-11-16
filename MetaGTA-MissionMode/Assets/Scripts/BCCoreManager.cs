@@ -774,6 +774,7 @@ public class BCCoreManager : MonoBehaviour
 
     async public void getDailyToken()
     {
+        MessaeBox.insta.showMsg("Claiming Token! \nPlease Confirm And Continue.", false);
 
         object[] inputParams = { };
         string method = "GetGameToken"; // buyBurnItem";// "buyCoins";

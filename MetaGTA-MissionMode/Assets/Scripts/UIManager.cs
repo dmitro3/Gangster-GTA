@@ -402,14 +402,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text game_status_text;
     [SerializeField] TMP_Text reward_got_text;
     [SerializeField] GameObject TokenUI;
-
-    public void ShowTokenUI()
+    [SerializeField] TMP_Text coinsGot_text;
+    public void ShowTokenUI(int coinsGot)
     {
+        coinsGot_text.text = "Coins reward : " + coinsGot.ToString();
         TokenUI.SetActive(true);
     }
     public void ClaimToken()
     {
+        TokenUI.SetActive(false);
         BCCoreManager.Instance.getDailyToken();
+       
+    }
+    public void IgnoreToken()
+    {
         TokenUI.SetActive(false);
     }
 
@@ -481,6 +487,10 @@ public class UIManager : MonoBehaviour
             await Cysharp.Threading.Tasks.UniTask.Delay(2000, true);
             ClaimReward(randomNumber - 1);
         }
+    }
+    public void IgnoreRandomReward()
+    {
+        ToggleDailyRewardUI(false);
     }
 
 

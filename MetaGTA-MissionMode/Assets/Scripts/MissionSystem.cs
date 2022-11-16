@@ -238,7 +238,7 @@ public class MissionSystem : MonoBehaviour
             case MissionType.COLLECTCOINS:
                 {
                     mission.missionHeader = "Collect coins in given time";
-
+                    mission.reward_amount = (Random.Range(100, 150) / 100) * 100;
                     mission.coint_collect_amount = Random.Range(5, 10);
                     mission.pickup_point = pickup_points[Random.Range(0, pickup_points.Length)];
                     mission.deliver_point = end_points[Random.Range(0, end_points.Length)];
@@ -284,6 +284,7 @@ public class MissionSystem : MonoBehaviour
         if (!isDoingMission)
         {
             ResetProperties();
+
             lastStartedMission = index;
             isDoingMission = true;
             
@@ -454,7 +455,7 @@ public class MissionSystem : MonoBehaviour
 
         if (data.missionCompleted % 1 == 0)
         {
-            UIManager.Instance.ShowTokenUI();
+            UIManager.Instance.ShowTokenUI(_runningMission.reward_amount);
         }
 
         UIManager.Instance.SetCoinText();
