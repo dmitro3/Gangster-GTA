@@ -49,7 +49,7 @@ public class MyNFTCollection : MonoBehaviour
             all_cars.Add(PlayerCarsInfo.Instance.carDefaultData[i].car_index);
         }
 
-        await EvmosManager.Instance.CheckPuzzleList();
+        await BCCoreManager.Instance.CheckPuzzleList();
 
         
         SetNewData();
@@ -86,7 +86,7 @@ public class MyNFTCollection : MonoBehaviour
 
 
 
-        temp_list = EvmosManager.Instance.nftList;
+        temp_list = BCCoreManager.Instance.nftList;
 
         if (temp_list.Count > 0)
         {
@@ -579,7 +579,7 @@ public class MyNFTCollection : MonoBehaviour
 
         lastSelectedButton = carIndex;
         //car Index Starts from 0 and 0-is default car. So Buy index-1
-        EvmosManager.Instance.purchaseItem(carIndex-1,false);
+        BCCoreManager.Instance.purchaseItem(carIndex-1,false);
     }
 
     private void SelectCar(int carIndex)

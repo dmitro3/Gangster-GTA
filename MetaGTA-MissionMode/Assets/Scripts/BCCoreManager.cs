@@ -9,10 +9,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class EvmosManager : MonoBehaviour
+public class BCCoreManager : MonoBehaviour
 {
     #region Singleton
-    public static EvmosManager Instance;
+    public static BCCoreManager Instance;
     private void Awake()
     {
         if (Instance == null)

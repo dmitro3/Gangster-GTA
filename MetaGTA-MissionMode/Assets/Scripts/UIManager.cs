@@ -409,7 +409,7 @@ public class UIManager : MonoBehaviour
     }
     public void ClaimToken()
     {
-        EvmosManager.Instance.getDailyToken();
+        BCCoreManager.Instance.getDailyToken();
         TokenUI.SetActive(false);
     }
 
@@ -444,7 +444,7 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < token_texts.Length; i++)
         {
-            token_texts[i].text = EvmosManager.userTokenBalance;
+            token_texts[i].text = BCCoreManager.userTokenBalance;
         }
     }
     #endregion
@@ -463,7 +463,7 @@ public class UIManager : MonoBehaviour
     public async void GetRandomNumber()
     {
         MessaeBox.insta.showMsg("Getting Random Number! \n Please wait and confirm transaction.", false);
-        int randomNumber = await EvmosManager.Instance.GetRandomNumber();
+        int randomNumber = await BCCoreManager.Instance.GetRandomNumber();
         Debug.Log("Random Number Is " + randomNumber);
         if (randomNumber == -1)
         {

@@ -120,7 +120,7 @@ public class DatabaseManager : MonoBehaviour
                 if (createnew)
                 {
 
-                    EvmosManager.Instance.EnablePlayPanels();
+                    BCCoreManager.Instance.EnablePlayPanels();
                     UIManager.Instance.OpenEditProfile();
                 }
             }
@@ -165,7 +165,7 @@ public class DatabaseManager : MonoBehaviour
                     UIManager.Instance.UpdateUserName(data.name, SingletonDataManager.userethAdd);
                 }
 
-                EvmosManager.Instance.EnablePlayPanels();
+                BCCoreManager.Instance.EnablePlayPanels();
 
                 if (PlayerCarsInfo.Instance)
                 {
@@ -182,7 +182,7 @@ public class DatabaseManager : MonoBehaviour
                         if (data.transactionsInformation[i].transactionStatus.Equals("pending"))
                         {
                             Debug.Log("Pending Test 1");
-                            EvmosManager.Instance.CheckDatabaseTransactionStatus(data.transactionsInformation[i].transactionId);                         
+                            BCCoreManager.Instance.CheckDatabaseTransactionStatus(data.transactionsInformation[i].transactionId);                         
                         }
                     }
                 }
@@ -291,7 +291,7 @@ public class DatabaseManager : MonoBehaviour
     async public Task<long> GetCurrentTime()
     {
         
-        string result =await EvmosManager.Instance.CheckTimeStatus();
+        string result =await BCCoreManager.Instance.CheckTimeStatus();
        
         long currentEpoch;
         if (!string.IsNullOrEmpty(result))
