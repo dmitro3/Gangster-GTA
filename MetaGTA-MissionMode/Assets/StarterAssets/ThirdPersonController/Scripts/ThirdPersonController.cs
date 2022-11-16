@@ -533,6 +533,11 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
             TogglePlayer(false);
             UIManager.Instance.ToggleBoostUI(true);
             MetaManager.Instance.ChangeCamera(CameraType.CAR);
+
+            if (pv.IsMine)
+            {
+                UIManager.Instance.ToggleCarMarkerBTN(false);
+            }
         }
         else
         {
@@ -542,6 +547,13 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
             UIManager.Instance.ToggleBoostUI(false);
             MetaManager.Instance.ChangeCamera(CameraType.TP);
             MetaManager.Instance.myCarController.Stop();
+
+            UIManager.Instance.ToggleCarMarkerBTN(true);
+            
+            if (pv.IsMine)
+            {
+
+            }
 
         }
 

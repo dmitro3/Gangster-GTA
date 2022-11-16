@@ -19,6 +19,8 @@ public class MetaManager : MonoBehaviour
     }
     #endregion
 
+    [SerializeField] MissionWaypoint missionwaypoint;
+
     public Transform[] playerPoz;
     public Transform[] carPoz;
 
@@ -79,6 +81,9 @@ public class MetaManager : MonoBehaviour
         CAR_Back_camera.LookAt = myCarController.transform;
 
         topCameraFollow.EnableCamera(myCarController.transform,myPlayer.transform);
+
+        missionwaypoint.car_target = _car.transform;
+
     }
 
 

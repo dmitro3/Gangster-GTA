@@ -522,5 +522,23 @@ public class UIManager : MonoBehaviour
         emote_ui.SetActive(enabled);
     }
     #endregion
+
+    #region Car Marker
+
+    [SerializeField] GameObject carSearchBTN;
+    [SerializeField] MissionWaypoint missionWayPoint;
+    public void ToggleCarMarkerBTN(bool enabled)
+    {
+        carSearchBTN.SetActive(enabled);
+        if (!enabled)
+        {
+            ResetWayPoint();
+        }
+    }
+    public void ResetWayPoint()
+    {
+        missionWayPoint.ToggleCarMarker(false);
+    }
+    #endregion
 }
 
