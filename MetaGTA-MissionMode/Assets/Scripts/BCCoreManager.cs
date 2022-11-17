@@ -299,7 +299,7 @@ public class BCCoreManager : MonoBehaviour
             {
                 await CheckPuzzleList();
 
-                MyNFTCollection.insta.DeductCoins(DatabaseManager.Instance.allMetaDataServer[_no].cost);
+                MyNFTCollection.insta.DeductCoins(DatabaseManager.Instance.allMetaDataServer[_no+1].cost);
                 MyNFTCollection.insta.DisableLastSelectedButton();
                 MyNFTCollection.insta.SetNewData();
             }
