@@ -507,7 +507,7 @@ public class ThirdPersonController : MonoBehaviourPunCallbacks,IPunObservable
 
         if (enable)
         {
-            Debug.Log("FROM WHICH METHOD ENABLE");
+            //Debug.Log("FROM WHICH METHOD ENABLE");
         }
         
     }
