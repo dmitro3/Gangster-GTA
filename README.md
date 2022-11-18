@@ -1,7 +1,7 @@
 # Gangster GTA
 Gangster GTA full of action and adventure based metaverse web3 game
 
-### [Game Play Link] (https://)
+### [Game Play Link] (https://bafybeidcxpupbot66kp4g53rkguqn27xnb3qd2bfyisjyq3dgic6c27efa.ipfs.gateway.valist.io/)
 
 
 ## Features
@@ -15,9 +15,9 @@ Gangster GTA full of action and adventure based metaverse web3 game
 
 ## Technologies
 - Unity game engine
-- [Polygon (Mumbai Testnet) for in-game purchase, Weapons NFT and reward token ERC-20, exchange token](https://github.com/MoraDefi/MetaRacer/blob/main/Polygon.md)
-- [Chainlink (VRF) To get random number](https://github.com/FDGame2022/FoodDeliveryGame/blob/main/Chainlink.md)
-- [Filecoin/IPFS - Store and Retrive NFT](https://github.com/FDGame2022/FoodDeliveryGame/blob/main/Filecoin-IPFS.md)
+- [Polygon (Mumbai Testnet) for in-game purchase, Weapons NFT and reward token ERC-20, exchange token](https://github.com/TGSUnityDevelopment/Gangster-GTA/blob/main/Polygon.md)
+- [Chainlink (VRF) To get random number](https://github.com/TGSUnityDevelopment/Gangster-GTA/blob/main/Chainlink.md)
+- [Filecoin/IPFS - Store and Retrive NFT](https://github.com/TGSUnityDevelopment/Gangster-GTAblob/main/Filecoin-IPFS.md)
 - Remix IDE used to create smart contract for ERC-1155 NFT and In-app store
 
 ## Upcoming Features
