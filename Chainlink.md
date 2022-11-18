@@ -14,6 +14,6 @@
 
 
 ### Polygon smart contract source code
-1) https://github.com/MoraDefi/MetaRacer/blob/main/MetaGTA-RaceMode/Contract/Contract3.txt
+1) https://github.com/TGSUnityDevelopment/Gangster-GTA/blob/main/MetaGTA-MissionMode/Contract/Contract3.txt
 
 ![Use](/Images/Gang1.jpg)
